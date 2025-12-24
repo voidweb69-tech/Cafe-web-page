@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Void Café — Fresh Coffee. Warm Moments.</title>
+
+<style>
+:root{
+  --bg:#0f0d0b;
+  --panel:#181512;
+  --card:#1f1b17;
+  --text:#f5f3f0;
+  --muted:#b8b2aa;
+  --accent:#c89b6d;
+  --accent-soft:rgba(200,155,109,.25);
+}
+
+html,body{width:100%;overflow-x:hidden}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",system-ui,sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
+
+/* ---------- LAYOUT ---------- */
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:4rem 1.25rem;
+}
+
+/* ---------- NAV ---------- */
+nav{
+  max-width:1200px;
+  margin:auto;
+  padding:1.5rem 1.25rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+nav h1{
+  font-size:1.4rem;
+  letter-spacing:.05em;
+}
+
+.nav-btn{
+  padding:.6rem 1.4rem;
+  border-radius:999px;
+  border:none;
+  background:var(--accent);
+  color:#1a120b;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  min-height:85vh;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(rgba(15,13,11,.78),rgba(15,13,11,.9)),
+    url("https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1600&q=80");
+  background-size:cover;
+  background-position:center;
+}
+
+.hero-content{
+  max-width:720px;
+  padding:5rem 1.25rem;
+}
+
+.hero h2{
+  font-size:clamp(2.6rem,5vw,4rem);
+  margin-bottom:1rem;
+}
+
+.hero p{
+  max-width:520px;
+  color:var(--muted);
+}
+
+.hero .cta{
+  margin-top:2rem;
+  padding:.9rem 2.2rem;
+  border-radius:999px;
+  border:none;
+  background:var(--accent);
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 0 30px var(--accent-soft);
+}
+
+/* ---------- SECTIONS ---------- */
+section h3{
+  font-size:2.2rem;
+  text-align:center;
+  margin-bottom:2.5rem;
+}
+
+/* ---------- ABOUT ---------- */
+.about{background:var(--panel)}
+.about p{
+  max-width:820px;
+  margin:auto;
+  text-align:center;
+  color:var(--muted);
+}
+
+/* ---------- MENU ---------- */
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:2rem;
+}
+
+.menu-item{
+  background:var(--card);
+  padding:2.2rem;
+  border-radius:18px;
+  box-shadow:0 18px 45px rgba(0,0,0,.45);
+  opacity:0;
+  transform:translateY(30px);
+  transition:.8s ease;
+}
+
+.menu-item.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.menu-item h4{
+  color:var(--accent);
+  margin-bottom:.4rem;
+}
+
+.menu-item p{
+  color:var(--muted);
+  font-size:.95rem;
+}
+
+.category-title{
+  margin:4rem 0 2rem;
+  font-size:1.8rem;
+  text-align:center;
+}
+
+/* ---------- FINAL CTA ---------- */
+.final{
+  background:radial-gradient(circle at center,var(--accent-soft),transparent 70%);
+  text-align:center;
+}
+
+.reserve-btn{
+  padding:1rem 2.6rem;
+  border-radius:999px;
+  border:none;
+  background:linear-gradient(135deg,#c89b6d,#e2b887);
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 12px 32px rgba(200,155,109,.4);
+}
+
+/* ---------- MODAL ---------- */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+
+.modal.active{display:flex}
+
+.modal-card{
+  background:var(--panel);
+  padding:2.5rem;
+  border-radius:20px;
+  width:90%;
+  max-width:420px;
+}
+
+.modal-card h3{
+  text-align:center;
+  margin-bottom:1.4rem;
+}
+
+.modal-card input,
+.modal-card select{
+  width:100%;
+  padding:.7rem;
+  margin-bottom:1rem;
+  border-radius:8px;
+  border:none;
+}
+
+.label{
+  font-size:.85rem;
+  color:var(--muted);
+  margin:.6rem 0 .3rem;
+  display:block;
+}
+
+.modal-card button{
+  width:100%;
+  padding:.9rem;
+  border-radius:999px;
+  border:none;
+  background:var(--accent);
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  background:#0a0908;
+  color:#cfcac4;
+  text-align:center;
+  padding:2.5rem 1rem;
+  font-size:.95rem;
+  line-height:1.8;
+}
+
+footer a{
+  color:#c89b6d;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h1>Void Café</h1>
+  <button class="nav-btn" onclick="scrollToMenu()">View Menu</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h2>Fresh Coffee.<br>Warm Moments.</h2>
+    <p>A calm urban café serving thoughtfully crafted coffee and comforting meals.</p>
+    <button class="cta" onclick="scrollToMenu()">View Menu</button>
+  </div>
+</section>
+
+<section class="about">
+  <div class="container">
+    <h3>Our Story</h3>
+    <p>
+      Void Café was created as a place to slow down.
+      We focus on quality ingredients, careful preparation,
+      and a warm atmosphere that invites you to stay.
+    </p>
+  </div>
+</section>
+
+<section class="container" id="menu">
+  <h3>Popular Items</h3>
+  <div class="menu-grid">
+    <div class="menu-item"><h4>Signature Latte</h4><p>Espresso with steamed milk and vanilla notes.</p></div>
+    <div class="menu-item"><h4>Americano</h4><p>Bold, smooth, and balanced.</p></div>
+    <div class="menu-item"><h4>Chocolate Croissant</h4><p>Flaky pastry with rich chocolate.</p></div>
+    <div class="menu-item"><h4>Breakfast Bowl</h4><p>Seasonal vegetables and grains.</p></div>
+  </div>
+
+  <h4 class="category-title">Coffee</h4>
+  <div class="menu-grid">
+    <div class="menu-item"><h4>Cappuccino</h4><p>Perfect foam balance.</p></div>
+    <div class="menu-item"><h4>Cold Brew</h4><p>Slow-steeped and smooth.</p></div>
+  </div>
+
+  <h4 class="category-title">Desserts</h4>
+  <div class="menu-grid">
+    <div class="menu-item"><h4>Cheesecake</h4><p>Soft and creamy.</p></div>
+    <div class="menu-item"><h4>Brownie</h4><p>Warm chocolate center.</p></div>
+  </div>
+
+  <h4 class="category-title">Meals</h4>
+  <div class="menu-grid">
+    <div class="menu-item"><h4>Avocado Toast</h4><p>Fresh herbs and grains.</p></div>
+    <div class="menu-item"><h4>Pasta Bowl</h4><p>Comfort classic.</p></div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="container">
+    <h3>Visit Us Today</h3>
+    <button class="reserve-btn" onclick="openModal()">Reserve a Table</button>
+  </div>
+</section>
+
+<footer>
+  <div>© Voidweb</div>
+  <div>Created by voidweb</div>
+  <div>Contact: <a href="mailto:voidweb69@gmail.com">voidweb69@gmail.com</a></div>
+  <div>
+    Instagram:
+    <a href="https://www.instagram.com/void__web?igsh=enduM2RvNjZpZW1i" target="_blank">
+      https://www.instagram.com/void__web
+    </a>
+  </div>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <h3>Reserve a Table</h3>
+
+    <input placeholder="Full Name">
+    <input type="email" placeholder="Email">
+    <input type="tel" placeholder="Phone Number">
+
+    <select>
+      <option disabled selected>Seats (1–20)</option>
+      <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+      <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+      <option>11</option><option>12</option><option>13</option><option>14</option><option>15</option>
+      <option>16</option><option>17</option><option>18</option><option>19</option><option>20</option>
+    </select>
+
+    <label class="label">Date</label>
+    <input type="date">
+
+    <label class="label">Time</label>
+    <input type="time">
+
+    <button onclick="confirmReservation()">Confirm Reservation</button>
+  </div>
+</div>
+
+<script>
+const items=document.querySelectorAll(".menu-item");
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("show");
+  });
+},{threshold:.2});
+items.forEach(i=>observer.observe(i));
+
+function scrollToMenu(){
+  document.getElementById("menu").scrollIntoView({behavior:"smooth"});
+}
+function openModal(){
+  document.getElementById("modal").classList.add("active");
+}
+function confirmReservation(){
+  alert("Reservation confirmed. We look forward to welcoming you!");
+  document.getElementById("modal").classList.remove("active");
+}
+</script>
+
+</body>
+  </html>
